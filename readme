@@ -1,0 +1,19 @@
+# Create env python for this project like myvenv
+
+# List of pip to install
+
+flask
+flask_sqlalchemy
+flask_login
+werkzeug
+pyotp
+hashlib
+opencv-python
+
+## Open DB
+
+1. go to sqlite local and create your app.db on this directory. for example
+```
+sqlite
+.open C:/Users/chong/Desktop/Projects/Python/Test/app.db
+```

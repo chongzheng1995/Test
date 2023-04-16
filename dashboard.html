@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Dashboard </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body></br></br></br></br></br>
+        <div align="center">
+          <div align="center" class="border">
+             <div class="header">
+                <h1 class="word">Dashboard</h1>
+             </div></br></br></br>
+            <h2 class="word">
+              {% for log in logs %}
+                <div>User {{log.user_id}}: is doing "{{log.description}}" at {{log.datetime}}</div>
+              {% endfor %}
+            </h2>
+          </div>
+        </div>
+    </body>
+</html>
