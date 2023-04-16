@@ -33,7 +33,7 @@ class User(UserMixin, db.Model):
     salt = db.Column(db.String(32), nullable=False)
     otp_secret = db.Column(db.String(16), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    logs = db.relationship('Log', backref='user', lazy=True, uselist=False)
+    logs = db.relationship('Log', backref='user', lazy=True, uselist=True)
 
 # Define the Log model for the database
 class Log(db.Model):
@@ -228,7 +228,7 @@ def face_recognition():
 
 with app.app_context():
     db.create_all()
-    users = User.query.one().logs
+    users = User.query.all()
     print(users)
 
 
