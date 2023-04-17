@@ -33,7 +33,7 @@ class User(UserMixin, db.Model):
     salt = db.Column(db.String(32), nullable=False)
     otp_secret = db.Column(db.String(16), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    logs = db.relationship('Log', backref='user', lazy=True, uselist=True)
+    logs = db.relationship('Log', backref='user', lazy=True, uselist=False, order_by='Log.datetime.desc()')
 
 # Define the Log model for the database
 class Log(db.Model):
@@ -120,9 +120,9 @@ def logout():
 @login_required
 def dashboard():
     if not current_user.is_admin:
-        logs = current_user.logs.all().order_by(Log.datetime.desc()).limit(10).all()
+        logs = Log.query.filter_by(user_id=current_user.get_id()).order_by(Log.datetime.desc()).limit(10).all()
     else:
-        logs = Log.query.all().order_by(Log.datetime.desc()).limit(10).all()
+        logs = Log.query.order_by(Log.datetime.desc()).limit(10).all()
     return render_template('dashboard.html', logs=logs)
 
 
