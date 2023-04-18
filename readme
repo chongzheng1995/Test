@@ -2,13 +2,16 @@
 
 # List of pip to install
 
-flask
-flask_sqlalchemy
-flask_login
-werkzeug
-pyotp
-hashlib
-opencv-python
+pip install flask
+pip install flask_sqlalchemy
+pip install flask_login
+pip install werkzeug
+pip install pyotp
+pip install hashlib
+pip install opencv-python
+pip install "dlib-19.22.99-cp310-cp310-win_amd64.whl"
+pip install cmake
+pip install face-recognition
 
 ## Open DB
 
@@ -17,3 +20,5 @@ opencv-python
 sqlite
 .open C:/Users/chong/Desktop/Projects/Python/Test/app.db
 ```
+
+https://pypi.org/project/face-recognition/

@@ -17,6 +17,10 @@
                     <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br></br>
                     <input type="submit" class="btn" value="Sign In"></br></br>
                 </form>
+                <form action ="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                  <input type="file" name="file" />
+                  <input type="submit"/>
+                </form>
             </h2>
             <p class="bottom">Don't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
           </div>

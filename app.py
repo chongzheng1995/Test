@@ -1,5 +1,5 @@
 # Import the required libraries and packages
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
 from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -9,6 +9,7 @@ import hashlib
 import pyotp
 import cv2
 import json
+import face_recognition
 
 # Configure the Flask application
 app = Flask(__name__, template_folder='.')
@@ -168,20 +169,28 @@ def edit_user(id):
         return redirect(url_for('admin'))
     return render_template('edit-user.html', user=user)
 
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 # Define the upload image route for the application
-@app.route('/upload-image', methods=['GET', 'POST'])
-@login_required
-def upload_image():
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
     if request.method == 'POST':
         # Retrieve the file data
         file = request.files['file']
+        if file and allowed_file(file.filename) == False:
+            resp = jsonify({'message' : 'Allowed file types are png, jpg, jpeg'})
+            resp.status_code = 400
+            return resp
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         # Save the file
         file.save(filepath)
         flash('File uploaded successfully!')
         return redirect(url_for('dashboard'))
-    return render_template('upload-image.html')
+    return render_template('upload.html')
 
 # Define the face recognition route for the application
 @app.route('/face-recognition', methods=['GET', 'POST'])
