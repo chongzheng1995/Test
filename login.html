@@ -18,6 +18,7 @@
                     <input type="submit" class="btn" value="Sign In"></br></br>
                 </form>
                 <form action ="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                  <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/></br></br>
                   <input type="file" name="file" />
                   <input type="submit"/>
                 </form>
